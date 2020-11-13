@@ -5,6 +5,8 @@ from django import forms
 
 
 #form personalizado, es una replica del UserCreationForm de Django con mas fields
+#ver documentacion para cambiar fields
+
 class CreateUserForm(UserCreationForm):
     class Meta: 
         model = User

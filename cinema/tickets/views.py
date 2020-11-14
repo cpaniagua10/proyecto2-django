@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth.forms import UserCreationForm
-from .forms import CreateUserForm
+from .forms import CreateUserForm, BookingForm
 from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
 # Create your views here.
@@ -36,3 +36,33 @@ def loginPage(request):
 def logoutUser(request): 
     logout(request)
     return redirect('loginPage')
+
+
+def ticketBooking(request):
+    new_form = BookingForm()
+    if (request.method == 'POST'):
+        filled_form = BookingForm(request.POST)
+
+        if (filled_form.is_valid()):
+            new_ticket = filled_form.save()
+            note = 'success'
+        else:
+            note = 'INVALID'
+
+        return render(
+            request,
+            'booking.html',
+            {
+                'bookingform': new_form,
+                'note': note
+            }
+        )
+    else:
+        return render(
+            request,
+            'booking.html',
+            {
+                'bookingform': new_form,
+                'note': 'Hola!'
+            }
+        )

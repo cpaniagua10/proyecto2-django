@@ -1,0 +1,23 @@
+{% load widget_tweaks %}
+
+    <div class="container">
+
+      <h1>Create new Ticket object</h1>
+
+      <h2>{{ note }}</h2>
+
+      <form action="{% url 'ticketBooking' %}" method="post">
+          {% csrf_token %}
+          {% for field in bookingform %}
+          <div class="form-group">
+
+            {{ field.label_tag }}
+            {% render_field field class="form-control" %}
+
+          </div>
+          {% endfor %}
+
+          <input type="submit" value="New Ticket Object">
+      </form>
+
+    </div>

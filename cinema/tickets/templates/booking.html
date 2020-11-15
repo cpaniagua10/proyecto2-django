@@ -4,8 +4,35 @@
 
       <h1>Create new Ticket object</h1>
 
+      
       <h2>{{ note }}</h2>
 
+      
+      <h2>Movie-one</h2>
+      {% for pk, values in seat_dict.items %}
+          {% if values.movie == "1" %}
+            Seat number: {{values.number}}, for movie {{values.movie}} at {{values.time}} <br>
+          {% endif %}
+      {% endfor %}
+      
+      <h2>Movie-two</h2>
+      {% for pk, values in seat_dict.items %}
+          {% if values.movie == "2" %}
+            Seat number: {{values.number}}, for movie {{values.movie}} at {{values.time}} <br>
+          {% endif %}
+      {% endfor %}
+
+      <h2>Movie-three</h2>
+      {% for pk, values in seat_dict.items %}
+          {% if values.movie == "3" %}
+            Seat number: {{values.number}}, for movie {{values.movie}} at {{values.time}} <br>
+          {% endif %}
+      {% endfor %}
+      
+      <br>
+      <br>
+      <br>
+      
       <form action="{% url 'ticketBooking' %}" method="post">
           {% csrf_token %}
           {% for field in bookingform %}

@@ -17,25 +17,17 @@ class CreateUserForm(UserCreationForm):
 class BookingForm(forms.ModelForm):
     
     class Meta:
-        SEATS = [
-        ('1', '1'),
-        ('2', '2'),
-        ('3', '3'),
-        ('4', '4'),
-        ('5', '5')]
-        
         model = Ticket
-        fields = ['user','movie','movie_date','seat_number','time']
-        widgets = {
-        'movie_date': forms.DateInput(format=('%d-%m-%Y'), attrs={'class':'form-control', 'placeholder':'Select a date', 'type':'date'}),
-        'seat_number': forms.Select(choices=SEATS),
-        }
+        fields = ['user','movie','seat']
+        # widgets = {
+        # 'movie_date': forms.DateInput(format=('%d-%m-%Y'), attrs={'class':'form-control', 'placeholder':'Select a date', 'type':'date'}),
+        # }
 
         labels = {
                 'user': 'User',
                 'movie': 'Movie',
-                'movie_date': 'Movie_date',
-                'seat_number': 'Seat_number',
-                'time':'Time'}
+                'seat_number': 'Seat_number'
+                }
+
 
         

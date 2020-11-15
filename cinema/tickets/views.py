@@ -5,7 +5,8 @@ from .models import Seat
 from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
 # Create your views here.
-
+def home(request): 
+	return render(request, 'main.html')
 def registerPage(request): 
     form = CreateUserForm()
     if request.method == 'POST': 
@@ -27,7 +28,7 @@ def loginPage(request):
 
         if user is not None: 
             login(request, user)
-            return redirect('registerPage') #hay que cambiarlo por homepage pero no existe aun
+            return redirect('home') #hay que cambiarlo por homepage pero no existe aun
         else: 
             messages.info(request, 'Username OR password is incorrect')
 
@@ -97,3 +98,4 @@ def ticketBooking(request):
                 'seat_dict': seat_dict,
             }
         )
+

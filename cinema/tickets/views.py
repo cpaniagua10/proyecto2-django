@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth.forms import UserCreationForm
-from .forms import CreateUserForm
+from .forms import CreateUserForm, BookingForm
+from .models import Seat
 from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
 # Create your views here.
@@ -36,3 +37,63 @@ def loginPage(request):
 def logoutUser(request): 
     logout(request)
     return redirect('loginPage')
+
+
+def ticketBooking(request):
+    new_form = BookingForm()
+    seat_dict = {}
+    for seat in Seat.objects.all():
+        if (not seat.full):
+        #print(seat.full)
+            seat_dict[seat.pk] = {
+                'number': seat.number,
+                'movie': seat.movie,
+                'time': seat.time,
+            }
+
+    if (request.method == 'POST'):
+        filled_form = BookingForm(request.POST)
+
+        if (filled_form.is_valid()):
+
+            if (filled_form.cleaned_data.get('seat').full):
+                note = 'That seat is not available, please choose another one'
+            else:
+                new_ticket = filled_form.save()
+                seat_form = filled_form.cleaned_data.get('seat')
+                #print(seat_form.pk)
+                Seat.objects.filter(pk=seat_form.pk).update(full=True)
+                note = 'success'
+
+            seat_dict_filled = {}
+            for seat in Seat.objects.all():
+                if (not seat.full):
+                #print(seat.full)
+                    seat_dict_filled[seat.pk] = {
+                        'number': seat.number,
+                        'movie': seat.movie,
+                        'time': seat.time,
+                    }
+        else:
+            note = 'INVALID'
+
+        return render(
+            request,
+            'booking.html',
+            {
+                'bookingform': new_form,
+                'note': note,
+                'seat_dict': seat_dict_filled
+            }
+        )
+    else:
+
+        return render(
+            request,
+            'booking.html',
+            {
+                'bookingform': new_form,
+                'note': 'Choose your movie, time and seat!',
+                'seat_dict': seat_dict,
+            }
+        )

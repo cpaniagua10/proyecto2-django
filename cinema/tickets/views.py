@@ -3,7 +3,11 @@ from django.contrib.auth.forms import UserCreationForm
 from .forms import CreateUserForm
 from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
+from django.http import HttpResponse
 # Create your views here.
+
+def home(request): 
+	return render(request, 'main.html')
 
 def registerPage(request): 
     form = CreateUserForm()
@@ -26,7 +30,7 @@ def loginPage(request):
 
         if user is not None: 
             login(request, user)
-            return redirect('registerPage') #hay que cambiarlo por homepage pero no existe aun
+            return redirect('home') 
         else: 
             messages.info(request, 'Username OR password is incorrect')
 

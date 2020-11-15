@@ -19,6 +19,7 @@ from tickets import views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('', views.home, name='home'),
     path('register/', views.registerPage, name='registerPage'),
     path('login/', views.loginPage, name = 'loginPage'),
     path('logout/', views.logoutUser, name = 'logoutUser'),

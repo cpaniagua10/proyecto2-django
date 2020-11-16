@@ -63,6 +63,21 @@
 			outline: 0px !important;
 		}
 
+		/* Create three equal columns that floats next to each other */
+		.column {
+		float: left;
+		width: 33.33%;
+		padding: 10px;
+		 /* Should be removed. Only for demonstration */
+		}
+
+		/* Clear floats after the columns */
+		.row:after {
+		content: "";
+		display: table;
+		clear: both;
+		}
+
 	</style>
 
 </head>
@@ -70,36 +85,42 @@
   {%  include 'navbar.html' %}
     <div class="container">
 
-      <h1>Create new Ticket object</h1>
+	<h1 style="color:#fcd391;">Book your ticket</h1>
+	<br>
+	<h2 style="color:#dddddd;">Available seats:</h2>
 
-      
-      <h2>{{ note }}</h2>
 
-      
-      <h2>Movie-one</h2>
-      {% for pk, values in seat_dict.items %}
-          {% if values.movie == "1" %}
-            Seat number: {{values.number}}, for movie {{values.movie}} at {{values.time}} <br>
-          {% endif %}
-      {% endfor %}
-      
-      <h2>Movie-two</h2>
+	<div class="row">
+	<div class="column" style="background-color:#f7ba5b;">
+		<h2>Black Panther</h2>
+		{% for pk, values in seat_dict.items %}
+			{% if values.movie == "1" %}
+			  Seat number: {{values.number}} for {{values.time}} <br>
+			{% endif %}
+		{% endfor %}
+	</div>
+	<div class="column" style="background-color:#fcc875;">
+		<h2>Moonlight</h2>
       {% for pk, values in seat_dict.items %}
           {% if values.movie == "2" %}
-            Seat number: {{values.number}}, for movie {{values.movie}} at {{values.time}} <br>
+            Seat number: {{values.number}} for {{values.time}} <br>
           {% endif %}
       {% endfor %}
-
-      <h2>Movie-three</h2>
+	</div>
+	<div class="column" style="background-color:#fcd391;">
+		<h2>Aladdin</h2>
       {% for pk, values in seat_dict.items %}
           {% if values.movie == "3" %}
-            Seat number: {{values.number}}, for movie {{values.movie}} at {{values.time}} <br>
+            Seat number: {{values.number}} for {{values.time}} <br>
           {% endif %}
       {% endfor %}
-      
-      <br>
-      <br>
-      <br>
+	</div>
+	</div>
+
+	<br>
+	<h3 style="color:#dddddd;">{{ note }}</h2>
+	<br>
+
       <div class="container h-100">
       <div class="d-flex justify-content-center h-100">
         <div class="user_card">
@@ -122,10 +143,18 @@
           </div> -->
           {% endfor %}
 
-          <input class ="btn login_btn" type="submit" value="New Ticket Object">
+          <input class ="btn login_btn" type="submit" value="Get Ticket">
         </div>
       </form>
-    </div>
+	</div>
+	
+	<br>
+	<br>
+	<br>
+	<br>
+	<br>
+	<br>
+
   </body>
   </html>
   

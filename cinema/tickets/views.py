@@ -45,7 +45,6 @@ def ticketBooking(request):
     seat_dict = {}
     for seat in Seat.objects.all():
         if (not seat.full):
-        #print(seat.full)
             seat_dict[seat.pk] = {
                 'number': seat.number,
                 'movie': seat.movie,
@@ -62,21 +61,19 @@ def ticketBooking(request):
             else:
                 new_ticket = filled_form.save()
                 seat_form = filled_form.cleaned_data.get('seat')
-                #print(seat_form.pk)
                 Seat.objects.filter(pk=seat_form.pk).update(full=True)
-                note = 'success'
+                note = 'Your ticket has been created'
 
             seat_dict_filled = {}
             for seat in Seat.objects.all():
                 if (not seat.full):
-                #print(seat.full)
                     seat_dict_filled[seat.pk] = {
                         'number': seat.number,
                         'movie': seat.movie,
                         'time': seat.time,
                     }
         else:
-            note = 'INVALID'
+            note = 'INVALID, try again.'
 
         return render(
             request,
@@ -94,7 +91,7 @@ def ticketBooking(request):
             'booking.html',
             {
                 'bookingform': new_form,
-                'note': 'Choose your movie, time and seat!',
+                'note': 'Choose your movie, time and seat:',
                 'seat_dict': seat_dict,
             }
         )

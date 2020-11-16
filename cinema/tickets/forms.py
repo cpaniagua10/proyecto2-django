@@ -19,9 +19,6 @@ class BookingForm(forms.ModelForm):
     class Meta:
         model = Ticket
         fields = ['user','movie','seat']
-        # widgets = {
-        # 'movie_date': forms.DateInput(format=('%d-%m-%Y'), attrs={'class':'form-control', 'placeholder':'Select a date', 'type':'date'}),
-        # }
 
         labels = {
                 'user': 'User',

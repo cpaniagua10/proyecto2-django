@@ -124,3 +124,14 @@ def show(request):
             )
     else:
         return redirect('loginPage')
+
+def DeleteTicket(request, pk):
+    ticket_to_delete = Ticket.objects.get(pk=pk)
+    if (request.method == 'POST'):
+        seat_to_free = ticket_to_delete.seat.pk
+        Seat.objects.filter(pk=seat_to_free).update(full=False)
+        ticket_to_delete.delete()
+        return redirect('show')
+
+    context = {'ticket_pk': ticket_to_delete.pk}
+    return render(request, 'delete.html', context)

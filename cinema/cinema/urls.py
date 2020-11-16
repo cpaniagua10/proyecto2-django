@@ -25,5 +25,6 @@ urlpatterns = [
     path('booking/', views.ticketBooking, name = 'ticketBooking'),
     path('', views.home, name='home'),
     path('show/', views.show, name = 'show'),
-]
+    path('delete/<int:pk>', views.DeleteTicket, name = 'delete'),
+]   
 

@@ -102,9 +102,18 @@ def show(request):
         print(username)
         for ticket in Ticket.objects.all():
             if str(ticket.user) == username or username == 'carolina':
+                if (ticket.movie == "1"):
+                    chosen_movie = "Black Panther"
+                elif (ticket.movie == "2"):
+                    chosen_movie = "Moonlight"
+                else:
+                    chosen_movie = "Aladdin"
+
                 ticket_dict[ticket.pk] = {
-                    'seat': ticket.seat,
-                'user': ticket.user
+                    'seat': ticket.seat.number,
+                    'user': ticket.user,
+                    'movie': chosen_movie,
+                    'time': ticket.seat.time
                 }   
         return render(
                 request,

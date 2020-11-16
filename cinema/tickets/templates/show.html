@@ -1,6 +1,10 @@
 {% load widget_tweaks %}
 <html>
 <head>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.1/css/all.css" integrity="sha384-gfdkjb5BdAXd+lj+gudLWI+BXq4IuLW5IT+brZEZsLFm++aCMlF1V92rMkPaX4PP" crossorigin="anonymous">
+
 
 <style>
 * {
@@ -8,11 +12,13 @@
 }
 
 /* Add a gray background color with some padding */
-body {
-  font-family: Arial;
-  padding: 20px;
-  background: #14246b ;
-}
+body,
+		html {
+			margin: 0;
+			padding: 0;
+			height: 100%;
+			background: #14246b !important;
+		}
 
 /* Header/Blog Title */
 .header {
@@ -27,35 +33,16 @@ body {
 /* Left column */
 
 
-/* Fake image */
-.fakeimg {
-  background-color: rgb(124, 148, 255);
-  width: 100%;
-  padding: 20px;
-  margin: auto;
-  display: flex;
-  justify-content: center;
-}
-
 /* Add a card effect for articles */
 .card {
    background-color: rgb(124, 148, 255);
    padding: 20px;
+   width: 50%;
    margin: auto;
-   text-align: center;
-   display: flex;
-  justify-content: center;
+
 }
 
 
-
-/* Footer */
-.footer {
-  padding: 20px;
-  text-align: center;
-  background: #ddd;
-  margin-top: 20px;
-}
 .link{
     color:white
 }
@@ -63,19 +50,33 @@ body {
 </head>
 
 <body>
-<a class = "link" href="{% url 'home'%}">Home</a>
+  {%  include 'navbar.html' %}
+
+  <div class="container">
+
 
 <div class="header">
   <h2>Your Tickets</h2>
 </div>
 
+{% for pk, values in ticket_dict.items %}
     <div class="card">
-      <div class="fakeimg" style="height:200px;">    {% for pk, values in ticket_dict.items %}
-          Customer: {{values.user}}, {{values.seat}}<br>
-    {% endfor %}</div>
-      <p
-<div class="footer">
-  <h2></h2>
+        <h5 style="color:#ffffff;">Ticket issue number: 
+        <span style="color: #000000"> {{pk}} </span> </h5>
+        
+        <h1 style="font-size:160%;color:#ffffff;">Costumer: 
+          <span style="color: #000000"> {{values.user}} </span> </h1>
+        <h1 style="font-size:160%;color:#ffffff;">Movie: 
+          <span style="color: #000000"> {{values.movie}} </span> </h1>
+        <h1 style="font-size:160%;color:#ffffff;">Time: 
+            <span style="color: #000000"> {{values.time}} </span> </h1>
+        <h1 style="font-size:160%;color:#ffffff;">Seat Number: 
+          <span style="color: #000000"> {{values.seat}} </span> </h1>
+
+  </div>
+  <br>
+  <br>
+{% endfor %}
 </div>
 
 </body>

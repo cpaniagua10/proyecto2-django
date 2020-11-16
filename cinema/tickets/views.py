@@ -5,8 +5,11 @@ from .models import Seat, Ticket
 from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
 # Create your views here.
+
 def home(request): 
 	return render(request, 'main.html')
+
+
 def registerPage(request): 
     form = CreateUserForm()
     if request.method == 'POST': 
@@ -19,6 +22,7 @@ def registerPage(request):
     context = {'form':form}
     return render(request, 'register.html', context)
 
+
 def loginPage(request):
     if request.method == 'POST':
         username = request.POST.get('username')
@@ -28,7 +32,7 @@ def loginPage(request):
 
         if user is not None: 
             login(request, user)
-            return redirect('home') #hay que cambiarlo por homepage pero no existe aun
+            return redirect('home') 
         else: 
             messages.info(request, 'Username OR password is incorrect')
 
@@ -84,7 +88,6 @@ def ticketBooking(request):
             }
         )
     else:
-
         return render(
             request,
             'booking.html',
@@ -95,11 +98,11 @@ def ticketBooking(request):
             }
         )
 
+
 def show(request): 
     if request.user.is_authenticated:
         ticket_dict = {}
         username = request.user.username
-        print(username)
         for ticket in Ticket.objects.all():
             if str(ticket.user) == username or username == 'carolina':
                 if (ticket.movie == "1"):

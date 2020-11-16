@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth.forms import UserCreationForm
 from .forms import CreateUserForm, BookingForm
-from .models import Seat
+from .models import Seat, Ticket
 from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
 # Create your views here.
@@ -55,7 +55,6 @@ def ticketBooking(request):
         filled_form = BookingForm(request.POST)
 
         if (filled_form.is_valid()):
-
             if (filled_form.cleaned_data.get('seat').full):
                 note = 'That seat is not available, please choose another one'
             else:
@@ -96,3 +95,23 @@ def ticketBooking(request):
             }
         )
 
+def show(request): 
+    if request.user.is_authenticated:
+        ticket_dict = {}
+        username = request.user.username
+        print(username)
+        for ticket in Ticket.objects.all():
+            if str(ticket.user) == username or username == 'carolina':
+                ticket_dict[ticket.pk] = {
+                    'seat': ticket.seat,
+                'user': ticket.user
+                }   
+        return render(
+                request,
+                'show.html',
+                {
+                    'ticket_dict': ticket_dict
+                }
+            )
+    else:
+        return redirect('loginPage')

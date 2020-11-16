@@ -1,0 +1,82 @@
+{% load widget_tweaks %}
+<html>
+<head>
+
+<style>
+* {
+  box-sizing: border-box;
+}
+
+/* Add a gray background color with some padding */
+body {
+  font-family: Arial;
+  padding: 20px;
+  background: #14246b ;
+}
+
+/* Header/Blog Title */
+.header {
+  padding: 30px;
+  font-size: 40px;
+  text-align: center;
+  background: #14246b;
+  color: white;
+}
+
+/* Create two unequal columns that floats next to each other */
+/* Left column */
+
+
+/* Fake image */
+.fakeimg {
+  background-color: rgb(124, 148, 255);
+  width: 100%;
+  padding: 20px;
+  margin: auto;
+  display: flex;
+  justify-content: center;
+}
+
+/* Add a card effect for articles */
+.card {
+   background-color: rgb(124, 148, 255);
+   padding: 20px;
+   margin: auto;
+   text-align: center;
+   display: flex;
+  justify-content: center;
+}
+
+
+
+/* Footer */
+.footer {
+  padding: 20px;
+  text-align: center;
+  background: #ddd;
+  margin-top: 20px;
+}
+.link{
+    color:white
+}
+</style>
+</head>
+
+<body>
+<a class = "link" href="{% url 'home'%}">Home</a>
+
+<div class="header">
+  <h2>Your Tickets</h2>
+</div>
+
+    <div class="card">
+      <div class="fakeimg" style="height:200px;">    {% for pk, values in ticket_dict.items %}
+          Customer: {{values.user}}, {{values.seat}}<br>
+    {% endfor %}</div>
+      <p
+<div class="footer">
+  <h2></h2>
+</div>
+
+</body>
+</html>

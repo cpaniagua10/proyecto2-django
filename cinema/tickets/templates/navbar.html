@@ -27,7 +27,7 @@
     </ul>
   </div>
 
-  <span class="hello-msg">Hello, {{request.user}}</span>
+<span ><a  class="hello-msg" href="{% url 'show'%}">Hello, {{request.user}}</a></span>
   <span ><a  class="hello-msg" href="{% url 'loginPage' %}">Login</a></span>
   <span ><a  class="hello-msg" href="{% url 'logoutUser' %}">Logout</a></span>
 

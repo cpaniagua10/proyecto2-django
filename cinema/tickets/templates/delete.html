@@ -37,52 +37,39 @@ body,
 .card {
    background-color: rgb(124, 148, 255);
    padding: 20px;
-   width: 50%;
+   width: 60%;
    margin: auto;
 
-}
-
-
-.link{
-    color:rgb(255, 0, 0)
 }
 
 </style>
 </head>
 
 <body>
-  {%  include 'navbar.html' %}
+    {%  include 'navbar.html' %}
 
-  <div class="container">
+    <div class="container">
 
+    <div class="header">
+        <h1>Delete Ticket</h1>
+    </div>
+        <div class="card">
 
-<div class="header">
-  <h2>Your Tickets</h2>
-</div>
+    <h3 style="font-size:160%;color:#ffffff;">
+        Click on the button below to confirm deleting Ticket {{ticket_pk}} 
+    </h3>
 
-{% for pk, values in ticket_dict.items %}
-    <div class="card">
-        <h5 style="color:#ffffff;">Ticket issue number: 
-        <span style="color: #000000"> {{pk}} </span> </h5>
-        
-        <h1 style="font-size:160%;color:#ffffff;">Costumer: 
-          <span style="color: #000000"> {{values.user}} </span> </h1>
-        <h1 style="font-size:160%;color:#ffffff;">Movie: 
-          <span style="color: #000000"> {{values.movie}} </span> </h1>
-        <h1 style="font-size:160%;color:#ffffff;">Time: 
-            <span style="color: #000000"> {{values.time}} </span> </h1>
-        <h1 style="font-size:160%;color:#ffffff;">Seat Number: 
-          <span style="color: #000000"> {{values.seat}} </span> </h1>
-          
-         
-          <a class = "link" href="{% url 'delete' pk %}">Delete</a>
-          
+    <br>
+    <br>
 
-  </div>
-  <br>
-  <br>
-{% endfor %}
-</div>
+    <form action="{% url 'delete' ticket_pk %}" method="post">
+        {% csrf_token %}
+        <div style="text-align:center;">
+        <input type="submit" value="Confirm">
+        </div>
+    </form>
+    </div>
+    </div>
 
 </body>
 </html>
